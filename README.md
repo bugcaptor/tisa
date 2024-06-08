@@ -22,3 +22,14 @@
 ```
 $ tisa search <TEXT>
 ```
+
+This feature is just experimental for coding!
+
+### Show todo notes
+```
+$ tisa todo
+```
+
+TODO
+- [ ] Expected result : show note titles in bullet list in specific folder (by config)
+

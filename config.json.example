@@ -1,0 +1,4 @@
+{
+    "directory": "/path/to/directory",
+    "pattern": "*.txt"
+}

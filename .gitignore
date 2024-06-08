@@ -27,3 +27,6 @@ $RECYCLE.BIN/
 # macOS and Linux file attributes
 *.swp
 *.swo
+
+# tisa specific
+config.json

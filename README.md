@@ -13,3 +13,12 @@
 - To achieve the effect of learning the language and framework with minimal boilerplate coding and less structural concerns, allowing for rapid development through a text-based CLI.
 - Managing knowledge and tasks through CLI interactions is personally enjoyable.
 
+## How to config
+- Make json file with tisa executable. See example format `config.json.example`.
+
+## How to use
+
+### Search
+```
+$ tisa search <TEXT>
+```

@@ -30,6 +30,8 @@ This feature is just experimental for coding!
 $ tisa todo
 ```
 
-TODO
-- [ ] Expected result : show note titles in bullet list in specific folder (by config)
-
+## TODO
+- [ ] todo done toggling.
+- [ ] todo editing.
+- [ ] todo archive.
+- [ ] todo search.

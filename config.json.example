@@ -1,4 +1,5 @@
 {
     "directory": "/path/to/directory",
-    "pattern": "*.txt"
+    "pattern": "*.txt",
+    "todo_directory": "/path/to/directory"
 }

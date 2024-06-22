@@ -12,4 +12,9 @@ pub fn build_cli() -> Command {
                 .arg(arg!(<WORD_FOR_SEARCH> "Word to search for"))
                 .arg_required_else_help(true),
         )
+        .subcommand(
+            Command::new("todo")
+                .about("Manage todo list")
+                .arg(arg!(<SUB_COMMAND> "Sub command for todo")),
+        )
 }

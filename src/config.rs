@@ -9,6 +9,7 @@ use std::sync::RwLock;
 pub struct Config {
     pub directory: String,
     pub pattern: String,
+    pub todo_directory: String,
 }
 
 impl Config {
@@ -25,6 +26,7 @@ lazy_static! {
     pub static ref CONFIG: RwLock<Config> = RwLock::new(Config {
         directory: String::new(),
         pattern: String::new(),
+        todo_directory: String::new(),
     });
 }
 

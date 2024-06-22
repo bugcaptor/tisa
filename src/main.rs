@@ -2,6 +2,7 @@ mod args;
 mod config;
 mod folder_walker;
 mod note_searcher;
+mod todo_note;
 mod utility;
 
 use config::{load_config, CONFIG};
@@ -20,7 +21,23 @@ fn main() {
 
     match matches.subcommand() {
         Some(("search", sub_matches)) => handle_search(sub_matches),
+        Some(("todo", sub_matches)) => handle_todo(sub_matches),
         _ => unreachable!(),
+    }
+}
+
+fn handle_todo(sub_matches: &clap::ArgMatches) {
+    let sub_command = sub_matches.get_one::<String>("SUB_COMMAND").unwrap();
+    println!("Todo sub command: {}", sub_command);
+
+    let config = CONFIG.read().unwrap();
+
+    // switch case
+    match sub_command.as_str() {
+        "add" => todo_note::add_todo(config.todo_directory.as_str()),
+        "list" => todo_note::list_todo(config.todo_directory.as_str()),
+        "done" => todo_note::done_todo(),
+        _ => println!("Unknown sub command: {}", sub_command),
     }
 }
 

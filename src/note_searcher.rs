@@ -23,7 +23,7 @@ pub fn search_note(root_dir: &str, pattern: &str, word: &str) {
             }
 
             // 탐색 결과 내용이 일치하는 게 없으면 이 파일은 아무 것도 출력하지 않습니다.
-            if (line_numbers_with_word.len() == 0) {
+            if line_numbers_with_word.len() == 0 {
                 return;
             }
 

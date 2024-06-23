@@ -1,4 +1,4 @@
-use clap::{arg, Command};
+use clap::{arg, Arg, Command};
 
 pub fn build_cli() -> Command {
     Command::new("tisa")
@@ -15,6 +15,16 @@ pub fn build_cli() -> Command {
         .subcommand(
             Command::new("todo")
                 .about("Manage todo list")
-                .arg(arg!(<SUB_COMMAND> "Sub command for todo")),
+                .subcommand_required(true)
+                .subcommand(Command::new("add").about("Add a new todo"))
+                .subcommand(Command::new("list").about("List all todos"))
+                .subcommand(
+                    Command::new("done").about("Mark a todo as done").arg(
+                        Arg::new("ID")
+                            .help("ID of the todo to mark as done")
+                            .required(true)
+                            .value_parser(clap::value_parser!(usize)),
+                    ),
+                ),
         )
 }

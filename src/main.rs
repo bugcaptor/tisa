@@ -27,17 +27,20 @@ fn main() {
 }
 
 fn handle_todo(sub_matches: &clap::ArgMatches) {
-    let sub_command = sub_matches.get_one::<String>("SUB_COMMAND").unwrap();
-    println!("Todo sub command: {}", sub_command);
+    let sub_command_name = sub_matches.subcommand_name().unwrap();
+    println!("Todo sub command: {}", sub_command_name);
 
     let config = CONFIG.read().unwrap();
 
     // switch case
-    match sub_command.as_str() {
-        "add" => todo_note::add_todo(config.todo_directory.as_str()),
-        "list" => todo_note::list_todo(config.todo_directory.as_str()),
-        "done" => todo_note::done_todo(),
-        _ => println!("Unknown sub command: {}", sub_command),
+    match sub_matches.subcommand() {
+        Some(("add", _sub_sub_matches)) => todo_note::add_todo(config.todo_directory.as_str()),
+        Some(("list", _sub_sub_matches)) => todo_note::list_todo(config.todo_directory.as_str()),
+        Some(("done", sub_sub_matches)) => todo_note::done_todo(
+            config.todo_directory.as_str(),
+            *sub_sub_matches.get_one::<usize>("ID").unwrap(),
+        ),
+        _ => println!("Unknown sub command: {}", sub_command_name),
     }
 }
 

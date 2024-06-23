@@ -31,7 +31,7 @@ $ tisa todo
 ```
 
 ## TODO
-- [ ] todo done toggling.
+- [x] todo done toggling.
 - [ ] todo editing.
 - [ ] todo archive.
 - [ ] todo search.

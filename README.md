@@ -25,10 +25,17 @@ $ tisa search <TEXT>
 
 This feature is just experimental for coding!
 
-### Show todo notes
+### Manage Todo
 ```
-$ tisa todo
+$ tisa todo list
+$ tisa todo add
+$ tisa todo done <index>
+$ tisa todo edit <index>
+$ tisa todo archive
+$ tisa todo search <word>
 ```
+
+### 
 
 ## TODO
 - [x] todo done toggling.

@@ -35,10 +35,50 @@ $ tisa todo archive
 $ tisa todo search <word>
 ```
 
-### 
+### Gaming Feature
 
-## TODO
-- [x] todo done toggling.
-- [x] todo editing.
-- [x] todo archive.
-- [x] todo search.
+#### Data Structure
+
+Basic concept of data structure
+: `/path/variable_key.md` has value.
+
+Programmer can access the value like get_value_of(`/Player/Identity/Name`) to get the value in a code.
+
+```
+- <root> : Game name or Player name
+    - Player
+        - Identity
+            - Name.md
+        - Location
+            - Current location.md
+        - Bio
+            - Age.md
+            - Height.md
+            - Weight.md
+        - Attribute
+            - Level.md
+            - HP.md
+            - MP.md
+            - EXP.md
+            - Gold.md
+        - Stat
+            - Strength
+            - Dexterity
+            - Intelligence
+            - Luck
+        - Inventory
+            - Item name.md
+        - Skill
+            - Skill name.md
+        - Quest
+            - Quest name.md
+```
+
+#### Turn
+
+A turn advances by a cli program execution.
+All variables and memory are stored in the file system.
+But some explanation is printed in the console.
+
+
+

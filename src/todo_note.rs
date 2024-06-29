@@ -1,6 +1,7 @@
-use std::fs;
-
 use regex::Regex;
+use std::fs;
+use unicode_normalization::char::compose;
+use unicode_normalization::UnicodeNormalization;
 
 // structure for todo entry
 pub struct TodoEntry {
@@ -132,4 +133,73 @@ pub fn done_todo(todo_dir: &str, index: usize) {
         }
     }
     list_todo(todo_dir);
+}
+
+pub fn edit_todo(todo_dir: &str, index: usize) {
+    let entries = load_todo_entries(todo_dir);
+    let target_entry = get_entry_by_index(&entries, index);
+    match target_entry {
+        Some(entry) => {
+            println!("Editing todo entry: {}", entry.title);
+            println!("Input new title...");
+            let mut new_title = String::new();
+            std::io::stdin().read_line(&mut new_title).unwrap();
+            new_title = new_title.trim().to_string();
+            println!("New title: {}", new_title);
+
+            let filename = make_todo_filename(todo_dir, &new_title, entry.done, entry.index);
+            println!("rename: {} -> {}", entry.filepath, filename);
+            fs::rename(entry.filepath.clone(), filename).expect("Could not rename file");
+            println!("Edited todo entry: {}", new_title);
+        }
+        None => {
+            println!("Could not find todo entry with index: {}", index);
+            println!("Todo list is here:");
+        }
+    }
+    list_todo(todo_dir);
+}
+
+pub fn archive_done_todos(todo_dir: &str) {
+    let entries = load_todo_entries(todo_dir);
+
+    // 이동 시킬 아카이브 서브 폴더.
+    let archive_dir = format!("{}/archive", todo_dir);
+    // 없으면 생성합니다.
+    let archive_path = std::path::Path::new(&archive_dir);
+    if !archive_path.exists() {
+        fs::create_dir(&archive_path).expect("Could not create directory");
+    }
+
+    for entry in entries {
+        if entry.done {
+            let filename = make_todo_filename(todo_dir, &entry.title, entry.done, entry.index);
+            // move to archive directory.
+            let archive_filename =
+                make_todo_filename(&archive_dir, &entry.title, entry.done, entry.index);
+            // 중복될 수도 있으니까 아카이빙 하는 시간을 붙여줍니다.
+            let now = chrono::Local::now();
+            let archive_filename =
+                archive_filename.replace(".md", &format!("-{}.md", now.format("%Y%m%d%H%M%S")));
+            println!("rename: {} -> {}", filename, archive_filename);
+            fs::rename(filename, archive_filename).expect("Could not rename file");
+        }
+    }
+    println!("Archived done todos");
+}
+
+pub fn search_todos(todo_dir: &str, word: &str) {
+    let lower_case_word = word.nfc().collect::<String>().to_lowercase();
+    let entries = load_todo_entries(todo_dir);
+    for entry in entries {
+        let title_normalized = entry.title.nfc().collect::<String>().to_lowercase();
+        if title_normalized.contains(&lower_case_word) {
+            println!(
+                "[{}] {} - {}",
+                entry.index,
+                entry.title,
+                if entry.done { "Done" } else { "Not Done" }
+            );
+        }
+    }
 }

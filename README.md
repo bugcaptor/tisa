@@ -32,6 +32,6 @@ $ tisa todo
 
 ## TODO
 - [x] todo done toggling.
-- [ ] todo editing.
-- [ ] todo archive.
-- [ ] todo search.
+- [x] todo editing.
+- [x] todo archive.
+- [x] todo search.

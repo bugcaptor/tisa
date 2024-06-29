@@ -25,6 +25,22 @@ pub fn build_cli() -> Command {
                             .required(true)
                             .value_parser(clap::value_parser!(usize)),
                     ),
+                )
+                .subcommand(
+                    Command::new("edit").about("Edit a todo").arg(
+                        Arg::new("ID")
+                            .help("ID of the todo to edit")
+                            .required(true)
+                            .value_parser(clap::value_parser!(usize)),
+                    ),
+                )
+                .subcommand(Command::new("archive").about("Archive all done todos"))
+                .subcommand(
+                    Command::new("search").about("Search for todos").arg(
+                        Arg::new("WORD_FOR_SEARCH")
+                            .help("Word to search for")
+                            .required(true),
+                    ),
                 ),
         )
 }

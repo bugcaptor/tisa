@@ -40,6 +40,19 @@ fn handle_todo(sub_matches: &clap::ArgMatches) {
             config.todo_directory.as_str(),
             *sub_sub_matches.get_one::<usize>("ID").unwrap(),
         ),
+        Some(("edit", sub_sub_matches)) => todo_note::edit_todo(
+            config.todo_directory.as_str(),
+            *sub_sub_matches.get_one::<usize>("ID").unwrap(),
+        ),
+        Some(("archive", _sub_sub_matches)) => {
+            todo_note::archive_done_todos(config.todo_directory.as_str())
+        }
+        Some(("search", sub_sub_matches)) => todo_note::search_todos(
+            config.todo_directory.as_str(),
+            sub_sub_matches
+                .get_one::<String>("WORD_FOR_SEARCH")
+                .unwrap(),
+        ),
         _ => println!("Unknown sub command: {}", sub_command_name),
     }
 }
